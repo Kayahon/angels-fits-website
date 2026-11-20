@@ -4,7 +4,9 @@ Claude keeps this file up to date so any session can pick up where the last one 
 Never put passwords in this file.
 
 ## Next step
-Phase 4: hosting and WordPress. PAUSED by user on 2026-11-16 (deciding on paid hosting). User has NO hosting yet. Already explained: Hostinger steps + partner link, and why free hosts don't work (WordPress.com free can't install Elementor; InfinityFree-type hosts block the API connection and email for the booking form). On return: ask if they now have hosting, then Step 3 (install WordPress). (User asked about Vercel; explained it can't run WordPress; user chose WordPress. User declined Higgsfield for now.)
+DIRECTION CHANGED 2026-11-20: user chose to rebuild Angel's Fits as a scroll-craft site (skill copy in .claude/skills/scroll-craft), hosted free on GitHub Pages (repo Kayahon/angels-fits-website, public). WordPress/Elementor/Hostinger plan is on hold. Booking: free form service or Facebook. Current step: scroll-craft Step 0 brief interview, then install ffmpeg (not on Mac; Node 24 + Chrome present), doctor.mjs, build in scrollcraft/builds/angels-fits/.
+
+(Old, on hold) Phase 4: hosting and WordPress. PAUSED by user on 2026-11-16 (deciding on paid hosting). User has NO hosting yet. Already explained: Hostinger steps + partner link, and why free hosts don't work (WordPress.com free can't install Elementor; InfinityFree-type hosts block the API connection and email for the booking form). On return: ask if they now have hosting, then Step 3 (install WordPress). (User asked about Vercel; explained it can't run WordPress; user chose WordPress. User declined Higgsfield for now.)
 
 ## Brief
 - Business name: Angel's Fits (matches logo), with "Outfit Rental" as a small tagline. Facebook page is named "Angel's Outfit Rental".
