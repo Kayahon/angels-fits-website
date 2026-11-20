@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Angel's Fits · Cowgirl, festival and party outfit rental in Mactan, Cebu</title>
+<meta name="description" content="Rent the whole look. Cowgirl, festival, party and kids' outfits for rent in Mactan, Lapu-Lapu City. 3-day rentals, fittings at LG Garden.">
+<link rel="icon" href="assets/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  :root {
+    --sc-canvas:     #FEF8EC;
+    --sc-surface:    #EAD9C0;
+    --sc-ink:        #2B1B13;
+    --sc-ink-soft:   #6B4630;
+    --sc-accent:     #B0532C;
+    --sc-accent-ink: #FEF8EC;
+    --sc-font-display: "Fraunces", Georgia, serif;
+    --sc-font-text:    "DM Sans", system-ui, sans-serif;
+    --sc-font-mono:    "DM Sans", system-ui, sans-serif;
+    --sand: #EAD9C0;
+    --blush: #E8A97F;
+    --mesquite: #2B1B13;
+    --bar-h: 76px;
+  }
+  body { background: var(--sc-canvas); color: var(--sc-ink); font-family: var(--sc-font-text); }
+  img { display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; border-radius: 4px; }
+  .sc-display em { font-style: italic; font-weight: 400; }
+
+  /* ---------- buttons: one label per intent ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    padding: .95rem 1.6rem; border-radius: var(--sc-r-pill);
+    background: var(--sc-accent); color: var(--sc-accent-ink);
+    font: 700 1rem/1.1 var(--sc-font-text); letter-spacing: .01em; text-decoration: none;
+    border: 1px solid var(--sc-accent); cursor: pointer; white-space: nowrap;
+    transition: transform 160ms var(--sc-ease-out), background-color 160ms var(--sc-ease-out), box-shadow 160ms var(--sc-ease-out);
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn[disabled] { opacity: .5; cursor: not-allowed; }
+  .btn--ghost { background: transparent; color: var(--sc-ink); border-color: currentColor; }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover { background: #8F3F1E; border-color: #8F3F1E; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(120, 52, 22, .25); }
+    .btn--ghost:hover { background: var(--sc-ink); color: var(--sc-canvas); border-color: var(--sc-ink); box-shadow: none; }
+  }
+
+  /* ---------- index bar (gallery grammar: the nav is an index that jumps) ---------- */
+  .bar {
+    position: fixed; inset: 0 0 auto 0; z-index: var(--sc-z-chrome);
+    height: var(--bar-h); display: flex; align-items: center; gap: var(--sc-6);
+    padding-inline: var(--sc-gutter);
+    background: rgba(254, 248, 236, .86); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(43, 27, 19, .1);
+  }
+  .bar__mark img { height: 56px; width: auto; border-radius: 50%; }
+  .bar__index { display: flex; gap: var(--sc-5); margin-left: auto; }
+  .bar__index a {
+    font: 500 .92rem/1 var(--sc-font-text); text-decoration: none; color: var(--sc-ink-soft);
+    padding: .5rem 0; border-bottom: 1px solid transparent;
+    transition: color 140ms var(--sc-ease-out), border-color 140ms var(--sc-ease-out);
+  }
+  .bar__index a:hover, .bar__index a.is-here { color: var(--sc-ink); border-color: var(--sc-accent); }
+  .bar .btn { padding: .75rem 1.25rem; font-size: .92rem; }
+
+  /* ---------- 1 · hero: object one, labelled, in layered planes ---------- */
+  .hero [data-sc-stage] {
+    display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: var(--sc-7);
+    padding: calc(var(--bar-h) + var(--sc-5)) var(--sc-gutter) var(--sc-6);
+    background: var(--sc-canvas);
+  }
+  .hero__copy { position: relative; z-index: 4; max-width: 34rem; }
+  .hero__copy h1 { font-size: var(--sc-t-4xl); }
+  .hero__copy .sc-lede { margin-top: var(--sc-5); }
+  .hero__copy .btn { margin-top: var(--sc-6); }
+  .hero__scene { position: relative; height: min(76svh, 720px); display: grid; place-items: center; }
+  .hero__sun {
+    position: absolute; width: 92%; aspect-ratio: 1; border-radius: 50%;
+    background: var(--sand); top: 6%; left: 4%; z-index: 0;
+  }
+  .hero__word {
+    position: absolute; z-index: 1; left: -6%; top: 34%; margin: 0;
+    font: italic 300 clamp(8rem, 17vw, 17rem)/1 var(--sc-font-display);
+    letter-spacing: -0.05em; color: var(--blush); opacity: .55; pointer-events: none;
+  }
+  .hero__arch {
+    position: relative; z-index: 2; height: min(66svh, 620px); aspect-ratio: 3 / 4; width: auto; max-width: none;
+    object-fit: cover; border: 10px solid var(--sc-canvas);
+    border-radius: 999px 999px 24px 24px; box-shadow: 0 30px 60px rgba(43, 27, 19, .2);
+  }
+  .hero__label {
+    position: absolute; z-index: 3; right: 0; bottom: 4%; max-width: 15rem;
+    background: var(--sc-canvas); padding: .8rem 1rem; border-radius: var(--sc-r-md);
+    box-shadow: 0 10px 24px rgba(43, 27, 19, .14);
+  }
+  .hero__front { position: absolute; z-index: 4; left: 2%; bottom: 14%; }
+  .sticker {
+    width: 128px; height: 128px; border-radius: 50%; display: grid; place-items: center; text-align: center;
+    background: var(--sc-accent); color: var(--sc-accent-ink); transform: rotate(-12deg);
+    font: 700 .82rem/1.2 var(--sc-font-text); letter-spacing: .08em; text-transform: uppercase;
+    box-shadow: 0 14px 28px rgba(120, 52, 22, .3);
+  }
+
+  /* label schema, used for every object on the page */
+  .lbl-num { font: 700 .74rem/1 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; color: var(--sc-accent); margin: 0; }
+  .lbl-name { font: 400 1.5rem/1.1 var(--sc-font-display); margin: .35rem 0 0; }
+  .lbl-pieces { font-size: .92rem; line-height: 1.5; color: var(--sc-ink-soft); margin: .4rem 0 0; }
+
+  /* ---------- 2 · quiet: the wardrobe index ---------- */
+  .quiet { padding-block: var(--sc-8) var(--sc-9); background: var(--sand); }
+  .quiet__grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--sc-8); align-items: start; }
+  .quiet h2 { font-size: var(--sc-t-2xl); max-width: 14ch; }
+  .wardrobe { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(43, 27, 19, .22); }
+  .wardrobe li {
+    display: flex; justify-content: space-between; gap: var(--sc-4); align-items: baseline;
+    padding: var(--sc-4) 0; border-bottom: 1px solid rgba(43, 27, 19, .22);
+    font: 400 var(--sc-t-lg)/1.3 var(--sc-font-display);
+  }
+  .wardrobe small { font: 500 .8rem/1 var(--sc-font-text); color: var(--sc-ink-soft); letter-spacing: .04em; }
+
+  /* ---------- 3 · PEAK: the fitting ---------- */
+  .fit [data-sc-stage] {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--sc-7);
+    padding: calc(var(--bar-h) + var(--sc-4)) var(--sc-gutter) var(--sc-5);
+    background: var(--sc-canvas);
+  }
+  .fit__head h2 { font-size: var(--sc-t-3xl); }
+  .fit__head .sc-body { margin-top: var(--sc-4); }
+  .fit__done { margin-top: var(--sc-5); font: italic 400 var(--sc-t-xl)/1.2 var(--sc-font-display); color: var(--sc-accent); opacity: 0; transition: opacity 300ms var(--sc-ease-out); }
+  .fit.is-done .fit__done { opacity: 1; }
+  .fit__figure { position: relative; height: min(80svh, 760px); aspect-ratio: 3 / 4; margin: 0; }
+  .fit__figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: var(--sc-r-lg); max-width: none; }
+  .fit__ghost { filter: grayscale(1) contrast(.7) brightness(1.15); opacity: .38; }
+  .fit__color { clip-path: inset(0 0 calc(var(--hide, 1) * 100%) 0 round var(--sc-r-lg)); box-shadow: 0 30px 60px rgba(43, 27, 19, .18); }
+  .fit__tape {
+    position: absolute; left: -12px; right: -12px; height: 2px; background: var(--sc-accent);
+    top: calc((1 - var(--hide, 1)) * 100%); opacity: var(--tape, 0);
+  }
+  .pieces { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--sc-3); align-self: start; margin-top: var(--sc-7); }
+  .piece {
+    display: grid; grid-template-columns: auto 1fr; gap: var(--sc-4); align-items: center;
+    padding: var(--sc-4) var(--sc-5); border-radius: var(--sc-r-md);
+    border: 1px solid rgba(43, 27, 19, .14); color: var(--sc-ink-soft);
+    transition: background-color 220ms var(--sc-ease-out), color 220ms var(--sc-ease-out), border-color 220ms var(--sc-ease-out), transform 220ms var(--sc-ease-out);
+  }
+  .piece b { display: block; font: 400 1.3rem/1.15 var(--sc-font-display); }
+  .piece span { display: block; font-size: .86rem; margin-top: .15rem; }
+  .piece i { font: italic 300 1.6rem/1 var(--sc-font-display); color: inherit; }
+  .piece.is-on { background: var(--sand); border-color: var(--sand); color: var(--sc-ink); transform: translateX(-6px); }
+  .piece.is-on i { color: var(--sc-accent); }
+
+  /* ---------- 4 · range: the looks, travelling sideways ---------- */
+  .looks [data-sc-stage] { background: var(--sc-canvas); display: flex; align-items: center; padding-top: var(--bar-h); }
+  .rail { display: flex; gap: var(--sc-7); padding-inline: var(--sc-gutter); align-items: flex-end; }
+  .rail__lead { flex: 0 0 24rem; align-self: center; }
+  .rail__lead h2 { font-size: var(--sc-t-3xl); }
+  .rail__lead .sc-body { margin-top: var(--sc-4); }
+  .look { flex: 0 0 auto; width: min(22rem, 30vw); }
+  .look img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--sc-r-lg); }
+  .look__meta { margin-top: var(--sc-4); min-height: 9.5rem; display: flex; flex-direction: column; }
+  .look__meta .tagbtn { margin-top: auto; }
+  .rail__end { flex: 0 0 20rem; align-self: center; padding: var(--sc-6); border-radius: var(--sc-r-lg); background: var(--sand); }
+  .rail__end p { margin: 0; }
+  .rail__end .lbl-name { margin-top: 0; }
+  .rail__end .sc-body { margin-top: var(--sc-3); color: var(--sc-ink-soft); }
+  .tagbtn {
+    align-self: flex-start; margin-top: var(--sc-4); display: inline-flex; align-items: center; gap: .55rem;
+    font: 700 .86rem/1 var(--sc-font-text); padding: .7rem 1rem; border-radius: var(--sc-r-pill);
+    background: transparent; color: var(--sc-ink); border: 1px solid rgba(43, 27, 19, .35); cursor: pointer;
+    transition: background-color 150ms var(--sc-ease-out), color 150ms var(--sc-ease-out), border-color 150ms var(--sc-ease-out), transform 150ms var(--sc-ease-out);
+  }
+  .tagbtn::before { content: ""; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid currentColor; }
+  .tagbtn:active { transform: scale(0.97); }
+  .tagbtn[aria-pressed="true"] { background: var(--sc-accent); border-color: var(--sc-accent); color: var(--sc-accent-ink); }
+  @media (hover: hover) and (pointer: fine) {
+    .tagbtn:hover { border-color: var(--sc-accent); color: var(--sc-accent); }
+    .tagbtn[aria-pressed="true"]:hover { color: var(--sc-accent-ink); }
+  }
+
+  /* ---------- 5 · kids ---------- */
+  .kids { background: var(--sand); }
+  .kids__head { display: flex; justify-content: space-between; align-items: end; gap: var(--sc-7); flex-wrap: wrap; }
+  .kids__head h2 { font-size: var(--sc-t-3xl); }
+  .kids__head .sc-body { max-width: 34ch; color: var(--sc-ink-soft); }
+  .kids__row { margin-top: var(--sc-8); display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: var(--sc-6); align-items: start; }
+  .kid img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--sc-r-lg); }
+  .kid:nth-child(2) { margin-top: var(--sc-9); }
+  .kid:nth-child(3) { margin-top: var(--sc-7); }
+  .kid figcaption { margin-top: var(--sc-4); }
+
+  /* ---------- 6 · rental: dark band, hard cut ---------- */
+  .rental { --sc-ink: #FEF8EC; --sc-ink-soft: #D9C2A6; --sc-accent: #E8A97F; background: var(--mesquite); color: var(--sc-ink); }
+  .rental h2 { font-size: var(--sc-t-3xl); max-width: 12ch; }
+  .rental__top { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sc-8); align-items: end; }
+  .rental__top .sc-body { color: var(--sc-ink-soft); }
+  .days { margin-top: var(--sc-8); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sc-7); }
+  .day { border-top: 1px solid rgba(254, 248, 236, .28); padding-top: var(--sc-5); }
+  .day__n { font: italic 300 clamp(4.5rem, 8vw, 7.5rem)/.85 var(--sc-font-display); color: var(--sc-accent); margin: 0; }
+  .day h3 { font: 400 1.7rem/1.1 var(--sc-font-display); margin: var(--sc-4) 0 0; }
+  .day p { color: var(--sc-ink-soft); margin: var(--sc-3) 0 0; line-height: 1.6; }
+  .facts { margin-top: var(--sc-9); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sc-6); border-top: 1px solid rgba(254, 248, 236, .28); padding-top: var(--sc-6); }
+  .facts dt { font: 700 .74rem/1 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; color: var(--sc-accent); }
+  .facts dd { margin: .6rem 0 0; font-size: 1.02rem; line-height: 1.5; }
+
+  /* ---------- 7 · book: the close ---------- */
+  .book { background: var(--sc-canvas); padding-bottom: var(--sc-6); }
+  .book__grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: var(--sc-9); align-items: start; }
+  .book h2 { font-size: var(--sc-t-4xl); }
+  .book__aside .sc-body { margin-top: var(--sc-5); color: var(--sc-ink-soft); }
+  .book__aside .btn--ghost { margin-top: var(--sc-6); }
+  .form { background: #fff; border-radius: var(--sc-r-lg); padding: var(--sc-7); box-shadow: 0 24px 50px rgba(43, 27, 19, .1); border-top: 1px solid rgba(255,255,255,.9); }
+  .form__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sc-5); }
+  .field { display: flex; flex-direction: column; gap: .45rem; }
+  .field--wide { grid-column: 1 / -1; }
+  .field label { font: 700 .86rem/1.3 var(--sc-font-text); }
+  .field input, .field select, .field textarea {
+    font: 400 1rem/1.4 var(--sc-font-text); color: var(--sc-ink);
+    background: var(--sc-canvas); border: 1px solid rgba(43, 27, 19, .28); border-radius: var(--sc-r-sm);
+    padding: .8rem .9rem; width: 100%; transition: border-color 140ms var(--sc-ease-out);
+  }
+  .field textarea { min-height: 7rem; resize: vertical; }
+  .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 1px; border-color: var(--sc-accent); }
+  .field input:user-invalid, .field select:user-invalid { border-color: #A3271F; }
+  .form .btn { margin-top: var(--sc-6); width: 100%; }
+  .form__note { margin: var(--sc-4) 0 0; font-size: .88rem; color: var(--sc-ink-soft); line-height: 1.5; }
+  .form__status { margin: var(--sc-4) 0 0; font-size: .95rem; line-height: 1.5; padding: .9rem 1rem; border-radius: var(--sc-r-sm); background: var(--sand); }
+  .form__status[hidden] { display: none; }
+  .foot { margin-top: var(--sc-9); padding-top: var(--sc-5); border-top: 1px solid rgba(43, 27, 19, .16); display: flex; flex-wrap: wrap; gap: var(--sc-4) var(--sc-7); justify-content: space-between; font-size: .88rem; color: var(--sc-ink-soft); }
+  .foot p { margin: 0; }
+
+  /* ---------- signature: the hang tag ---------- */
+  .tag {
+    position: fixed; right: clamp(1rem, 3vw, 2.5rem); bottom: clamp(1rem, 3vw, 2rem); z-index: calc(var(--sc-z-chrome) - 1);
+    width: 15.5rem; padding: 1.6rem 1.2rem 1.1rem; background: #FFFDF8; color: var(--mesquite);
+    border-radius: 10px 10px 14px 14px; box-shadow: 0 18px 40px rgba(43, 27, 19, .22);
+    clip-path: polygon(18% 0, 82% 0, 100% 9%, 100% 100%, 0 100%, 0 9%);
+    transform: translateY(24px) rotate(3deg); opacity: 0; pointer-events: none;
+    transition: opacity 260ms var(--sc-ease-out), transform 360ms var(--sc-ease-out);
+  }
+  .tag.is-shown { opacity: 1; transform: rotate(-3deg); pointer-events: auto; }
+  .tag.is-hidden-for-book { opacity: 0; transform: translateY(24px) rotate(3deg); pointer-events: none; }
+  .tag.is-flip { animation: tagflip 420ms var(--sc-ease-out); }
+  @keyframes tagflip { 0% { transform: rotate(-3deg) scale(1); } 40% { transform: rotate(4deg) scale(1.04); } 100% { transform: rotate(-3deg) scale(1); } }
+  .tag__hole { position: absolute; top: .55rem; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--sc-canvas); box-shadow: inset 0 1px 2px rgba(43,27,19,.35); }
+  .tag__brand { font: 700 .68rem/1 var(--sc-font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--sc-accent); margin: 0; }
+  .tag__look { font: 400 1.25rem/1.15 var(--sc-font-display); margin: .4rem 0 .7rem; }
+  .tag__list { margin: 0; padding: .7rem 0 0; list-style: none; border-top: 1px dashed rgba(43, 27, 19, .3); display: grid; gap: .4rem; }
+  .tag__list li { display: flex; gap: .55rem; align-items: center; font-size: .86rem; color: #7A5A44; transition: color 200ms var(--sc-ease-out); }
+  .tag__list li::before { content: ""; flex: none; width: 13px; height: 13px; border-radius: 3px; border: 1.5px solid currentColor; transition: background-color 200ms var(--sc-ease-out); }
+  .tag__list li.is-on { color: var(--mesquite); }
+  .tag__list li.is-on::before { background: var(--sc-accent); border-color: var(--sc-accent); box-shadow: inset 0 0 0 2px #FFFDF8; }
+  .tag__foot { display: flex; justify-content: space-between; align-items: center; gap: .5rem; margin-top: .9rem; padding-top: .7rem; border-top: 1px dashed rgba(43, 27, 19, .3); }
+  .tag__foot small { font-size: .74rem; color: #7A5A44; }
+  .tag__foot a { font: 700 .82rem/1 var(--sc-font-text); color: var(--sc-accent); text-underline-offset: 3px; }
+
+  /* ---------- trailing cursor (asked for by the owner) ---------- */
+  .ring { position: fixed; left: 0; top: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1.5px solid var(--sc-accent); border-radius: 50%; pointer-events: none; z-index: 9999; opacity: 0; transition: width 250ms var(--sc-ease-out), height 250ms var(--sc-ease-out), margin 250ms var(--sc-ease-out), background-color 250ms var(--sc-ease-out), opacity 250ms var(--sc-ease-out); }
+  .ring.is-on { opacity: .8; }
+  .ring.is-hover { width: 56px; height: 56px; margin: -28px 0 0 -28px; background: rgba(176, 83, 44, .1); }
+  @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .ring { display: none; } }
+
+  /* ---------- tablet / phone: separate composition ---------- */
+  @media (max-width: 1080px) {
+    .bar__index { display: none; }
+    .bar .btn { margin-left: auto; }
+    .fit [data-sc-stage] { grid-template-columns: auto 1fr; }
+    .fit__head { grid-column: 1 / -1; }
+  }
+  @media (max-width: 860px) {
+    :root { --bar-h: 64px; }
+    .bar__mark img { height: 46px; }
+    .hero [data-sc-stage] { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: var(--sc-4); align-content: start; }
+    .hero__scene { order: -1; height: 46svh; }
+    .hero__arch { height: 44svh; border-width: 6px; }
+    .hero__sun { width: 80%; left: 10%; top: 8%; }
+    .hero__copy h1 { font-size: var(--sc-t-2xl); }
+    .hero__copy .sc-lede { margin-top: var(--sc-3); font-size: 1.02rem; }
+    .hero__copy .btn { margin-top: var(--sc-5); }
+    .hero__label { display: none; }
+    .hero__word { font-size: 7rem; left: -4%; top: 34%; }
+    .sticker { width: 92px; height: 92px; font-size: .64rem; }
+    .hero__front { left: 0; bottom: 6%; }
+    .quiet__grid { grid-template-columns: 1fr; gap: var(--sc-6); }
+    .fit [data-sc-stage] { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; gap: var(--sc-4); justify-items: center; align-content: start; }
+    .fit__head { text-align: center; }
+    .fit__head h2 { font-size: var(--sc-t-2xl); }
+    .fit__head .sc-body { display: none; }
+    .fit__done { margin-top: var(--sc-2); font-size: 1.15rem; }
+    .fit__figure { height: 50svh; }
+    .pieces { grid-template-columns: 1fr 1fr; gap: var(--sc-2); width: 100%; margin-top: 0; }
+    .piece { padding: .55rem .7rem; gap: .55rem; }
+    .piece b { font-size: 1rem; }
+    .piece span { display: none; }
+    .piece i { font-size: 1.1rem; }
+    .piece.is-on { transform: none; }
+    .rail { gap: var(--sc-5); }
+    .rail__lead { flex-basis: 78vw; }
+    .look { width: 70vw; }
+    .look img { aspect-ratio: 3 / 3.4; }
+    .rail__end { flex-basis: 76vw; }
+    .kids__row { grid-template-columns: 1fr; gap: var(--sc-7); }
+    .kid:nth-child(2), .kid:nth-child(3) { margin-top: 0; }
+    .rental__top { grid-template-columns: 1fr; gap: var(--sc-5); }
+    .days { grid-template-columns: 1fr; gap: var(--sc-6); }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .book__grid { grid-template-columns: 1fr; gap: var(--sc-7); }
+    .book h2 { font-size: var(--sc-t-3xl); }
+    .form { padding: var(--sc-5); }
+    .form__grid { grid-template-columns: 1fr; }
+    .tag { width: auto; left: var(--sc-4); right: var(--sc-4); bottom: var(--sc-3); padding: .8rem 1rem; clip-path: none; border-radius: var(--sc-r-md); display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: .8rem; }
+    .tag.is-shown { transform: none; }
+    .tag__hole, .tag__list { display: none; }
+    .tag__look { margin: .25rem 0 0; font-size: 1.05rem; }
+    .tag__foot { margin: 0; padding: 0; border: 0; grid-row: 1 / 3; grid-column: 2; flex-direction: column; align-items: end; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fit__color { clip-path: none; }
+    .fit__tape { display: none; }
+    .tag, .tag.is-shown, .tag.is-flip { transform: none; animation: none; }
+    .piece.is-on { transform: none; }
+    .btn, .tagbtn { transition-property: background-color, color, border-color; }
+  }
+</style>
+</head>
+<body>
+
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+<div class="ring" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="bar__mark" href="#top" aria-label="Angel's Fits, back to top"><img src="assets/logo.jpg" width="400" height="400" alt="Angel's Fits logo"></a>
+  <nav class="bar__index" aria-label="Sections">
+    <a href="#fitting">The fitting</a>
+    <a href="#looks">The looks</a>
+    <a href="#kids">Kids</a>
+    <a href="#rental">3-day rental</a>
+  </nav>
+  <a class="btn" href="#book">Book your fit</a>
+</header>
+
+<main id="top">
+
+  <!-- 1 · RECOGNITION: object one, labelled, layered planes -->
+  <section class="hero" data-sc-act="pin" data-sc-span="1.6">
+    <div data-sc-stage>
+      <div class="hero__copy" data-sc-cue="0 0.9 0">
+        <h1 class="sc-display">Rent the <em>whole</em> look.</h1>
+        <p class="sc-lede">Cowgirl, festival and party outfits for rent in Mactan, Lapu-Lapu City. Hats and boots included.</p>
+        <a class="btn" href="#book">Book your fit</a>
+      </div>
+      <div class="hero__scene">
+        <div class="hero__sun" data-sc-parallax="-1.2" aria-hidden="true"></div>
+        <p class="hero__word" data-sc-parallax="-0.6" aria-hidden="true">yeehaw</p>
+        <img class="hero__arch" src="assets/look-5.jpg" width="1086" height="1448" alt="Cream fringe top, white tiered skirt, tan cowgirl hat, studded belt and tall brown boots on a mannequin">
+        <div class="hero__label">
+          <p class="lbl-num">Look 07</p>
+          <p class="lbl-name">White Fringe</p>
+          <p class="lbl-pieces">Fringe top, tiered skirt, studded belt, tan hat, tall brown boots.</p>
+        </div>
+        <div class="hero__front" data-sc-parallax="0.9"><div class="sticker">3-day<br>rental</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · CALM: the wardrobe index. Authored quiet before the peak. -->
+  <section class="sc-section quiet" data-sc-act="flow">
+    <div class="sc-wrap quiet__grid">
+      <div class="sc-stack" data-sc-in data-sc-stagger="60">
+        <p class="lbl-num">The wardrobe</p>
+        <h2 class="sc-display">Your next favorite outfit is just a rental away.</h2>
+        <p class="sc-body">Rent a full look, or just the piece you're missing. Western-inspired cowgirl looks, party outfits and everything in between.</p>
+      </div>
+      <ul class="wardrobe" data-sc-in data-sc-stagger="50">
+        <li>Cowgirl hats and boots <small>Hats, boots</small></li>
+        <li>Stylish tops and skirts <small>Tops, skirts</small></li>
+        <li>Dresses and statement pieces <small>Dresses</small></li>
+        <li>Fashion accessories <small>Belts and more</small></li>
+        <li>Mix-and-match outfit sets <small>Your own look</small></li>
+        <li>Party outfits, not only cowgirl <small>Any event</small></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 · PEAK: the fitting. Scroll dresses the mannequin, hat to boots. -->
+  <section id="fitting" class="fit" data-sc-act="pin" data-sc-span="4">
+    <div data-sc-stage>
+      <div class="fit__head">
+        <p class="lbl-num">Look 01 · Copper Corset</p>
+        <h2 class="sc-display">Watch it come <em>together.</em></h2>
+        <p class="sc-body">Every look rents as a full set, from the hat down to the boots.</p>
+        <p class="fit__done" aria-live="polite">That's the whole look.</p>
+      </div>
+      <figure class="fit__figure">
+        <img class="fit__ghost" src="assets/look-4.jpg" width="1086" height="1448" alt="" aria-hidden="true">
+        <img class="fit__color" src="assets/look-4.jpg" width="1086" height="1448" alt="Copper brocade corset, ruffled brown skirt, concho belt, brown hat and tall brown boots on a mannequin">
+        <div class="fit__tape" aria-hidden="true"></div>
+      </figure>
+      <ol class="pieces">
+        <li class="piece" data-piece="0"><i>01</i><div><b>Brown cowgirl hat</b><span>Suede, wide brim</span></div></li>
+        <li class="piece" data-piece="1"><i>02</i><div><b>Copper corset</b><span>Brocade, laced front</span></div></li>
+        <li class="piece" data-piece="2"><i>03</i><div><b>Skirt and belt</b><span>Ruffled brown skirt, concho belt</span></div></li>
+        <li class="piece" data-piece="3"><i>04</i><div><b>Tall brown boots</b><span>Western cut</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4 · APPETITE: the range, sideways -->
+  <section id="looks" class="looks" data-sc-act="pan" data-sc-span="3.2">
+    <div data-sc-stage>
+      <div class="rail" data-sc-pan="0.04">
+        <div class="rail__lead">
+          <h2 class="sc-display">Five more ways to <em>wear it.</em></h2>
+          <p class="sc-body">Rent the set as shown, or mix pieces between looks. Tag the one you like and it goes on your booking.</p>
+        </div>
+        <article class="look">
+          <img src="assets/look-2.jpg" width="1086" height="1448" loading="lazy" alt="Tied plaid shirt, white tiered skirt, studded belt, black hat and black fringe boots on a mannequin">
+          <div class="look__meta"><p class="lbl-num">Look 02</p><h3 class="lbl-name">Plaid &amp; Ruffles</h3><p class="lbl-pieces">Plaid shirt, tiered skirt, studded belt, black hat, fringe boots.</p>
+          <button class="tagbtn" type="button" aria-pressed="false" data-look="Look 02 · Plaid &amp; Ruffles" data-pieces="Black hat|Plaid shirt|Tiered skirt and belt|Black fringe boots">Tag this look</button></div>
+        </article>
+        <article class="look">
+          <img src="assets/look-7.jpg" width="1086" height="1448" loading="lazy" alt="Tan suede fringe top and skirt set, silver concho belt, brown hat and brown boots on a mannequin">
+          <div class="look__meta"><p class="lbl-num">Look 03</p><h3 class="lbl-name">Suede Fringe Set</h3><p class="lbl-pieces">Fringe top and skirt, concho belt, brown hat, brown boots.</p>
+          <button class="tagbtn" type="button" aria-pressed="false" data-look="Look 03 · Suede Fringe Set" data-pieces="Brown hat|Fringe top|Fringe skirt and belt|Brown boots">Tag this look</button></div>
+        </article>
+        <article class="look">
+          <img src="assets/look-6.jpg" width="1086" height="1448" loading="lazy" alt="Brown suede fringe vest, white tiered skirt, studded belt, brown hat and croc-print boots on a mannequin">
+          <div class="look__meta"><p class="lbl-num">Look 04</p><h3 class="lbl-name">Fringe Vest</h3><p class="lbl-pieces">Suede fringe vest, tiered skirt, studded belt, croc-print boots.</p>
+          <button class="tagbtn" type="button" aria-pressed="false" data-look="Look 04 · Fringe Vest" data-pieces="Brown hat|Fringe vest|Tiered skirt and belt|Croc-print boots">Tag this look</button></div>
+        </article>
+        <article class="look">
+          <img src="assets/look-1.jpg" width="1086" height="1448" loading="lazy" alt="Caramel lace top, white ruffle skirt, studded belt, tan hat and leopard print boots on a mannequin">
+          <div class="look__meta"><p class="lbl-num">Look 05</p><h3 class="lbl-name">Golden Lace</h3><p class="lbl-pieces">Caramel lace top, ruffle skirt, studded belt, leopard boots.</p>
+          <button class="tagbtn" type="button" aria-pressed="false" data-look="Look 05 · Golden Lace" data-pieces="Tan hat|Lace top|Ruffle skirt and belt|Leopard print boots">Tag this look</button></div>
+        </article>
+        <article class="look">
+          <img src="assets/look-3.jpg" width="1086" height="1448" loading="lazy" alt="Denim ruffle dress with belt, white fur-trim cowgirl hat and white knee-high boots on a mannequin">
+          <div class="look__meta"><p class="lbl-num">Look 06</p><h3 class="lbl-name">Denim &amp; Fur</h3><p class="lbl-pieces">Denim ruffle dress, belt, fur-trim white hat, white boots.</p>
+          <button class="tagbtn" type="button" aria-pressed="false" data-look="Look 06 · Denim &amp; Fur" data-pieces="White fur-trim hat|Denim dress|Belt|White boots">Tag this look</button></div>
+        </article>
+        <div class="rail__end">
+          <p class="lbl-name">Got a different event?</p>
+          <p class="sc-body">We have party outfits too, not only cowgirl. Tell us the occasion and we'll style it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · WARMTH: kids, opened by a wipe -->
+  <section id="kids" class="sc-section kids" data-sc-act="flow">
+    <div class="sc-wrap">
+      <div class="kids__head" data-sc-in data-sc-stagger="60">
+        <h2 class="sc-display">Little cowgirls, <em>too.</em></h2>
+        <p class="sc-body">Kids' outfits, styled head to toe the same way. Message us for sizes and rates.</p>
+      </div>
+      <div class="kids__row" data-sc-reveal="up" data-sc-reveal-at="0.12 0.5">
+        <figure class="kid">
+          <img src="assets/kids-1.jpg" width="1086" height="1448" loading="lazy" alt="Girl in a brown suede fringe vest, cream ribbed top, tiered cream skirt, brown cowgirl hat and boots">
+          <figcaption><p class="lbl-num">Kids 01</p><p class="lbl-name">Fringe Vest, Tiered</p><p class="lbl-pieces">Fringe vest, ribbed top, tiered skirt, hat, boots.</p>
+          <button class="tagbtn" type="button" aria-pressed="false" data-look="Kids 01 · Fringe Vest, Tiered" data-pieces="Brown hat|Vest and ribbed top|Tiered skirt|Brown boots">Tag this look</button></figcaption>
+        </figure>
+        <figure class="kid">
+          <img src="assets/kids-2.jpg" width="1086" height="1448" loading="lazy" alt="Girl in a brown suede fringe vest, cream ribbed top, pleated cream skirt, brown cowgirl hat and boots">
+          <figcaption><p class="lbl-num">Kids 02</p><p class="lbl-name">Fringe Vest, Pleated</p><p class="lbl-pieces">Fringe vest, ribbed top, pleated skirt, hat, boots.</p>
+          <button class="tagbtn" type="button" aria-pressed="false" data-look="Kids 02 · Fringe Vest, Pleated" data-pieces="Brown hat|Vest and ribbed top|Pleated skirt|Brown boots">Tag this look</button></figcaption>
+        </figure>
+        <figure class="kid">
+          <img src="assets/kids-3.jpg" width="1086" height="1448" loading="lazy" alt="Girl in a copper fringe top, brown skirt, studded belt, brown cowgirl hat and tan boots">
+          <figcaption><p class="lbl-num">Kids 03</p><p class="lbl-name">Copper Fringe</p><p class="lbl-pieces">Fringe top, brown skirt, studded belt, hat, boots.</p>
+          <button class="tagbtn" type="button" aria-pressed="false" data-look="Kids 03 · Copper Fringe" data-pieces="Brown hat|Fringe top|Skirt and belt|Tan boots">Tag this look</button></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · EASE: how renting works. Compressed, flow, hard cut to dark. -->
+  <section id="rental" class="sc-section rental" data-sc-act="flow">
+    <div class="sc-wrap">
+      <div class="rental__top" data-sc-in data-sc-stagger="60">
+        <h2 class="sc-display">Three days. <em>One big night.</em></h2>
+        <p class="sc-body">Every rental is 3 days, so you never have to rush. Pick it up, wear it, bring it back.</p>
+      </div>
+      <div class="days" data-sc-in data-sc-stagger="70">
+        <div class="day"><p class="day__n">01</p><h3>Pickup</h3><p>Collect your outfit in person, or have it sent by Maxim delivery.</p></div>
+        <div class="day"><p class="day__n">02</p><h3>Your event</h3><p>Wear it to the party, the festival or the shoot.</p></div>
+        <div class="day"><p class="day__n">03</p><h3>Return</h3><p>Bring it back on day three. Late returns add a daily fee, depending on the item.</p></div>
+      </div>
+      <dl class="facts" data-sc-in data-sc-stagger="50">
+        <div><dt>Fittings</dt><dd>By appointment at LG Garden.</dd></div>
+        <div><dt>Store</dt><dd>Online only, no physical store.</dd></div>
+        <div><dt>Rates</dt><dd>Message us for rates.</dd></div>
+        <div><dt>We reply</dt><dd>8am to 8pm.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 7 · RESOLVE: the booking form. Last element; holds. -->
+  <section id="book" class="sc-section book" data-sc-act="flow">
+    <div class="sc-wrap">
+      <div class="book__grid">
+        <div class="book__aside sc-stack" data-sc-in data-sc-stagger="60">
+          <h2 class="sc-display">Book your <em>fit.</em></h2>
+          <p class="sc-body">Tell us your date and the look you like. We'll message you back with availability, the rate and a fitting time.</p>
+          <a class="btn btn--ghost" href="https://www.facebook.com/search/top?q=Angel%27s%20Outfit%20Rental" target="_blank" rel="noopener">Message us on Facebook</a>
+        </div>
+        <form class="form" id="booking" method="POST" novalidate>
+          <div class="form__grid">
+            <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="f-contact">Facebook name or mobile</label><input id="f-contact" name="contact" required></div>
+            <div class="field"><label for="f-date">Event date</label><input id="f-date" name="event_date" type="date" required></div>
+            <div class="field"><label for="f-collect">Pickup or delivery</label>
+              <select id="f-collect" name="collection"><option>Personal pickup</option><option>Maxim delivery</option></select></div>
+            <div class="field field--wide"><label for="f-look">Which look?</label>
+              <select id="f-look" name="look">
+                <option>Not sure yet</option>
+                <option>Look 01 · Copper Corset</option>
+                <option>Look 02 · Plaid &amp; Ruffles</option>
+                <option>Look 03 · Suede Fringe Set</option>
+                <option>Look 04 · Fringe Vest</option>
+                <option>Look 05 · Golden Lace</option>
+                <option>Look 06 · Denim &amp; Fur</option>
+                <option>Look 07 · White Fringe</option>
+                <option>Kids 01 · Fringe Vest, Tiered</option>
+                <option>Kids 02 · Fringe Vest, Pleated</option>
+                <option>Kids 03 · Copper Fringe</option>
+                <option>Mix and match my own</option>
+                <option>A party outfit</option>
+              </select></div>
+            <div class="field field--wide"><label for="f-notes">Anything else? (size, occasion, pieces to mix)</label><textarea id="f-notes" name="notes"></textarea></div>
+          </div>
+          <button class="btn" type="submit">Send booking request</button>
+          <p class="form__note">Sending this doesn't confirm your booking yet. We'll message you to confirm the date, rate and fitting.</p>
+          <p class="form__status" role="status" hidden></p>
+        </form>
+      </div>
+      <footer class="foot">
+        <p>© 2026 Angel's Fits · Mactan, Lapu-Lapu City, Cebu</p>
+        <p>Online only · Fittings at LG Garden · Replies 8am to 8pm</p>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<!-- signature: the hang tag. Fixed chrome, outlives every act. -->
+<aside class="tag" aria-label="Your tagged look" aria-live="polite">
+  <span class="tag__hole" aria-hidden="true"></span>
+  <p class="tag__brand">Angel's Fits</p>
+  <p class="tag__look">Look 01 · Copper Corset</p>
+  <ul class="tag__list"></ul>
+  <div class="tag__foot"><small>3-day rental</small><a href="#book" class="tag__book">Book this look</a></div>
+</aside>
+
+<script src="scrollcraft.js"></script>
+<script>
+  ScrollCraft.mount(document.body);
+
+  (function () {
+    /* Formspree endpoint, e.g. "https://formspree.io/f/abcdwxyz". Empty until the owner creates the form. */
+    var FORM_ENDPOINT = "";
+    var FACEBOOK = "https://www.facebook.com/search/top?q=Angel%27s%20Outfit%20Rental";
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var tag = document.querySelector('.tag');
+    var tagLook = tag.querySelector('.tag__look');
+    var tagList = tag.querySelector('.tag__list');
+    var lookSelect = document.getElementById('f-look');
+
+    var state = { look: 'Look 01 · Copper Corset', pieces: ['Brown cowgirl hat', 'Copper corset', 'Skirt and belt', 'Tall brown boots'], on: [false, false, false, false] };
+
+    function renderTag() {
+      tagLook.textContent = state.look;
+      tagList.innerHTML = '';
+      state.pieces.forEach(function (p, i) {
+        var li = document.createElement('li');
+        li.textContent = p;
+        if (state.on[i]) li.className = 'is-on';
+        tagList.appendChild(li);
+      });
+    }
+    renderTag();
+
+    /* ---------- the fitting: scroll dresses the mannequin ---------- */
+    var fit = document.getElementById('fitting');
+    var fig = fit.querySelector('.fit__figure');
+    var rows = fit.querySelectorAll('.piece');
+    var bands = [0, 0.21, 0.45, 0.67, 1];           /* hat, top, skirt + belt, boots (measured on look-4) */
+    var windows = [[0.06, 0.24], [0.28, 0.46], [0.50, 0.68], [0.72, 0.88]];
+    var fitStarted = false, fitTagOwned = true, lastP = -1;
+
+    function ease(t) { return 1 - Math.pow(1 - t, 3); }
+    function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+
+    function tick() {
+      var p = parseFloat(fit.style.getPropertyValue('--sc-p')) || 0;
+      var rect = fit.getBoundingClientRect();
+      if (p !== lastP) {
+        lastP = p;
+        var shown = 0, onCount = 0;
+        windows.forEach(function (w, i) {
+          var t = reduce ? (p >= w[0] ? 1 : 0) : ease(clamp((p - w[0]) / (w[1] - w[0])));
+          if (t > 0) shown = bands[i] + (bands[i + 1] - bands[i]) * t;
+          var on = t > 0.55;
+          rows[i].classList.toggle('is-on', on);
+          if (on) onCount = i + 1;
+          if (fitTagOwned) state.on[i] = on;
+        });
+        if (reduce) shown = 1;
+        fig.style.setProperty('--hide', (1 - shown).toFixed(4));
+        fig.style.setProperty('--tape', (shown > 0 && shown < 1) ? 1 : 0);
+        fit.classList.toggle('is-done', onCount === 4);
+        if (fitTagOwned) renderTag();
+      }
+      /* the tag appears once the fitting starts and stays for the rest of the page */
+      if (!fitStarted && rect.top < window.innerHeight * 0.4) { fitStarted = true; tag.classList.add('is-shown'); }
+      var book = document.getElementById('book').getBoundingClientRect();
+      tag.classList.toggle('is-hidden-for-book', book.top < window.innerHeight * 0.7);
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    /* ---------- tag this look ---------- */
+    var tagButtons = document.querySelectorAll('.tagbtn');
+    tagButtons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        tagButtons.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); o.textContent = 'Tag this look'; });
+        b.setAttribute('aria-pressed', 'true');
+        b.textContent = 'Tagged';
+        fitTagOwned = false;
+        state.look = b.getAttribute('data-look');
+        state.pieces = b.getAttribute('data-pieces').split('|');
+        state.on = state.pieces.map(function () { return true; });
+        renderTag();
+        fitStarted = true; tag.classList.add('is-shown');
+        if (!reduce) { tag.classList.remove('is-flip'); void tag.offsetWidth; tag.classList.add('is-flip'); }
+        setLook(state.look);
+      });
+    });
+
+    function setLook(name) {
+      for (var i = 0; i < lookSelect.options.length; i++) {
+        if (lookSelect.options[i].text === name) { lookSelect.selectedIndex = i; return; }
+      }
+    }
+    document.querySelectorAll('a[href="#book"]').forEach(function (a) {
+      a.addEventListener('click', function () { if (fitStarted) setLook(state.look); });
+    });
+
+    /* ---------- the booking form ---------- */
+    var form = document.getElementById('booking');
+    var status = form.querySelector('.form__status');
+    var submit = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      if (!FORM_ENDPOINT) {
+        status.hidden = false;
+        status.innerHTML = 'Online booking is being set up. For now, please <a href="' + FACEBOOK + '" target="_blank" rel="noopener">message us on Facebook</a> with your date and look.';
+        return;
+      }
+      submit.disabled = true; submit.textContent = 'Sending…';
+      fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) {
+          status.hidden = false;
+          if (r.ok) { status.textContent = "Thank you! We got your request and will message you between 8am and 8pm."; form.reset(); }
+          else { status.innerHTML = 'Something went wrong. Please <a href="' + FACEBOOK + '" target="_blank" rel="noopener">message us on Facebook</a> instead.'; }
+        })
+        .catch(function () { status.hidden = false; status.innerHTML = 'No connection. Please try again, or <a href="' + FACEBOOK + '" target="_blank" rel="noopener">message us on Facebook</a>.'; })
+        .then(function () { submit.disabled = false; submit.textContent = 'Send booking request'; });
+    });
+
+    /* ---------- index bar: mark the section in view ---------- */
+    var links = document.querySelectorAll('.bar__index a');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        links.forEach(function (l) { l.classList.toggle('is-here', l.getAttribute('href') === '#' + en.target.id); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['fitting', 'looks', 'kids', 'rental', 'book'].forEach(function (id) { io.observe(document.getElementById(id)); });
+
+    /* ---------- trailing cursor, desktop only ---------- */
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var ring = document.querySelector('.ring');
+    if (fine && !reduce) {
+      var mx = 0, my = 0, x = 0, y = 0;
+      document.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; ring.classList.add('is-on'); });
+      document.addEventListener('mouseleave', function () { ring.classList.remove('is-on'); });
+      document.addEventListener('mouseover', function (e) { ring.classList.toggle('is-hover', !!e.target.closest('a, button, select, input, textarea, label')); });
+      (function loop() { x += (mx - x) * 0.14; y += (my - y) * 0.14; ring.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)'; requestAnimationFrame(loop); })();
+    }
+  })();
+</script>
+</body>
+</html>
