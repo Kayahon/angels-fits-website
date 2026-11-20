@@ -153,44 +153,12 @@
   .piece.is-on { background: var(--sand); border-color: var(--sand); color: var(--sc-ink); transform: translateX(-6px); }
   .piece.is-on i { color: var(--sc-accent); }
 
-  /* ---------- 4 · range: the looks, travelling sideways ---------- */
-  .looks [data-sc-stage] { background: var(--sc-canvas); display: flex; align-items: center; padding-top: var(--bar-h); }
-  .rail { display: flex; gap: var(--sc-7); padding-inline: var(--sc-gutter); align-items: flex-end; }
-  .rail__lead { flex: 0 0 24rem; align-self: center; }
-  .rail__lead h2 { font-size: var(--sc-t-3xl); }
-  .rail__lead .sc-body { margin-top: var(--sc-4); }
-  .look { flex: 0 0 auto; width: min(22rem, 30vw); }
-  .look img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--sc-r-lg); }
-  .look__meta { margin-top: var(--sc-4); min-height: 9.5rem; display: flex; flex-direction: column; }
-  .look__meta .tagbtn { margin-top: auto; }
-  .rail__end { flex: 0 0 20rem; align-self: center; padding: var(--sc-6); border-radius: var(--sc-r-lg); background: var(--sand); }
-  .rail__end p { margin: 0; }
-  .rail__end .lbl-name { margin-top: 0; }
-  .rail__end .sc-body { margin-top: var(--sc-3); color: var(--sc-ink-soft); }
-  .tagbtn {
-    align-self: flex-start; margin-top: var(--sc-4); display: inline-flex; align-items: center; gap: .55rem;
-    font: 700 .86rem/1 var(--sc-font-text); padding: .7rem 1rem; border-radius: var(--sc-r-pill);
-    background: transparent; color: var(--sc-ink); border: 1px solid rgba(43, 27, 19, .35); cursor: pointer;
-    transition: background-color 150ms var(--sc-ease-out), color 150ms var(--sc-ease-out), border-color 150ms var(--sc-ease-out), transform 150ms var(--sc-ease-out);
-  }
-  .tagbtn::before { content: ""; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid currentColor; }
-  .tagbtn:active { transform: scale(0.97); }
-  .tagbtn[aria-pressed="true"] { background: var(--sc-accent); border-color: var(--sc-accent); color: var(--sc-accent-ink); }
-  @media (hover: hover) and (pointer: fine) {
-    .tagbtn:hover { border-color: var(--sc-accent); color: var(--sc-accent); }
-    .tagbtn[aria-pressed="true"]:hover { color: var(--sc-accent-ink); }
-  }
-
-  /* ---------- 5 · kids ---------- */
-  .kids { background: var(--sand); }
-  .kids__head { display: flex; justify-content: space-between; align-items: end; gap: var(--sc-7); flex-wrap: wrap; }
-  .kids__head h2 { font-size: var(--sc-t-3xl); }
-  .kids__head .sc-body { max-width: 34ch; color: var(--sc-ink-soft); }
-  .kids__row { margin-top: var(--sc-8); display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: var(--sc-6); align-items: start; }
-  .kid img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--sc-r-lg); }
-  .kid:nth-child(2) { margin-top: var(--sc-9); }
-  .kid:nth-child(3) { margin-top: var(--sc-7); }
-  .kid figcaption { margin-top: var(--sc-4); }
+  /* ---------- 4 · more: link to the outfits page ---------- */
+  .more { background: var(--sand); padding-block: var(--sc-8); }
+  .more__row { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--sc-8); align-items: end; }
+  .more h2 { font-size: var(--sc-t-3xl); }
+  .more__side .sc-body { color: var(--sc-ink-soft); }
+  .more__side .btn { margin-top: var(--sc-5); }
 
   /* ---------- 6 · rental: dark band, hard cut ---------- */
   .rental { --sc-ink: #FEF8EC; --sc-ink-soft: #D9C2A6; --sc-accent: #E8A97F; background: var(--mesquite); color: var(--sc-ink); }
@@ -265,8 +233,8 @@
 
   /* ---------- tablet / phone: separate composition ---------- */
   @media (max-width: 1080px) {
-    .bar__index { display: none; }
-    .bar .btn { margin-left: auto; }
+    .bar__index a:not(.bar__keep) { display: none; }
+    .bar { gap: var(--sc-5); }
     .fit [data-sc-stage] { grid-template-columns: auto 1fr; }
     .fit__head { grid-column: 1 / -1; }
   }
@@ -297,13 +265,7 @@
     .piece span { display: none; }
     .piece i { font-size: 1.1rem; }
     .piece.is-on { transform: none; }
-    .rail { gap: var(--sc-5); }
-    .rail__lead { flex-basis: 78vw; }
-    .look { width: 70vw; }
-    .look img { aspect-ratio: 3 / 3.4; }
-    .rail__end { flex-basis: 76vw; }
-    .kids__row { grid-template-columns: 1fr; gap: var(--sc-7); }
-    .kid:nth-child(2), .kid:nth-child(3) { margin-top: 0; }
+    .more__row { grid-template-columns: 1fr; gap: var(--sc-5); }
     .rental__top { grid-template-columns: 1fr; gap: var(--sc-5); }
     .days { grid-template-columns: 1fr; gap: var(--sc-6); }
     .facts { grid-template-columns: 1fr 1fr; }
@@ -337,8 +299,7 @@
   <a class="bar__mark" href="#top" aria-label="Angel's Fits, back to top"><img src="assets/logo.jpg" width="400" height="400" alt="Angel's Fits logo"></a>
   <nav class="bar__index" aria-label="Sections">
     <a href="#fitting">The fitting</a>
-    <a href="#looks">The looks</a>
-    <a href="#kids">Kids</a>
+    <a class="bar__keep" href="outfits.html">Outfits</a>
     <a href="#rental">3-day rental</a>
   </nav>
   <a class="btn" href="#book">Book your fit</a>
@@ -410,70 +371,13 @@
     </div>
   </section>
 
-  <!-- 4 · APPETITE: the range, sideways -->
-  <section id="looks" class="looks" data-sc-act="pan" data-sc-span="3.2">
-    <div data-sc-stage>
-      <div class="rail" data-sc-pan="0.04">
-        <div class="rail__lead">
-          <h2 class="sc-display">Five more ways to <em>wear it.</em></h2>
-          <p class="sc-body">Rent the set as shown, or mix pieces between looks. Tag the one you like and it goes on your booking.</p>
-        </div>
-        <article class="look">
-          <img src="assets/look-2.jpg" width="1086" height="1448" loading="lazy" alt="Tied plaid shirt, white tiered skirt, studded belt, black hat and black fringe boots on a mannequin">
-          <div class="look__meta"><p class="lbl-num">Look 02</p><h3 class="lbl-name">Plaid &amp; Ruffles</h3><p class="lbl-pieces">Plaid shirt, tiered skirt, studded belt, black hat, fringe boots.</p>
-          <button class="tagbtn" type="button" aria-pressed="false" data-look="Look 02 · Plaid &amp; Ruffles" data-pieces="Black hat|Plaid shirt|Tiered skirt and belt|Black fringe boots">Tag this look</button></div>
-        </article>
-        <article class="look">
-          <img src="assets/look-7.jpg" width="1086" height="1448" loading="lazy" alt="Tan suede fringe top and skirt set, silver concho belt, brown hat and brown boots on a mannequin">
-          <div class="look__meta"><p class="lbl-num">Look 03</p><h3 class="lbl-name">Suede Fringe Set</h3><p class="lbl-pieces">Fringe top and skirt, concho belt, brown hat, brown boots.</p>
-          <button class="tagbtn" type="button" aria-pressed="false" data-look="Look 03 · Suede Fringe Set" data-pieces="Brown hat|Fringe top|Fringe skirt and belt|Brown boots">Tag this look</button></div>
-        </article>
-        <article class="look">
-          <img src="assets/look-6.jpg" width="1086" height="1448" loading="lazy" alt="Brown suede fringe vest, white tiered skirt, studded belt, brown hat and croc-print boots on a mannequin">
-          <div class="look__meta"><p class="lbl-num">Look 04</p><h3 class="lbl-name">Fringe Vest</h3><p class="lbl-pieces">Suede fringe vest, tiered skirt, studded belt, croc-print boots.</p>
-          <button class="tagbtn" type="button" aria-pressed="false" data-look="Look 04 · Fringe Vest" data-pieces="Brown hat|Fringe vest|Tiered skirt and belt|Croc-print boots">Tag this look</button></div>
-        </article>
-        <article class="look">
-          <img src="assets/look-1.jpg" width="1086" height="1448" loading="lazy" alt="Caramel lace top, white ruffle skirt, studded belt, tan hat and leopard print boots on a mannequin">
-          <div class="look__meta"><p class="lbl-num">Look 05</p><h3 class="lbl-name">Golden Lace</h3><p class="lbl-pieces">Caramel lace top, ruffle skirt, studded belt, leopard boots.</p>
-          <button class="tagbtn" type="button" aria-pressed="false" data-look="Look 05 · Golden Lace" data-pieces="Tan hat|Lace top|Ruffle skirt and belt|Leopard print boots">Tag this look</button></div>
-        </article>
-        <article class="look">
-          <img src="assets/look-3.jpg" width="1086" height="1448" loading="lazy" alt="Denim ruffle dress with belt, white fur-trim cowgirl hat and white knee-high boots on a mannequin">
-          <div class="look__meta"><p class="lbl-num">Look 06</p><h3 class="lbl-name">Denim &amp; Fur</h3><p class="lbl-pieces">Denim ruffle dress, belt, fur-trim white hat, white boots.</p>
-          <button class="tagbtn" type="button" aria-pressed="false" data-look="Look 06 · Denim &amp; Fur" data-pieces="White fur-trim hat|Denim dress|Belt|White boots">Tag this look</button></div>
-        </article>
-        <div class="rail__end">
-          <p class="lbl-name">Got a different event?</p>
-          <p class="sc-body">We have party outfits too, not only cowgirl. Tell us the occasion and we'll style it.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5 · WARMTH: kids, opened by a wipe -->
-  <section id="kids" class="sc-section kids" data-sc-act="flow">
-    <div class="sc-wrap">
-      <div class="kids__head" data-sc-in data-sc-stagger="60">
-        <h2 class="sc-display">Little cowgirls, <em>too.</em></h2>
-        <p class="sc-body">Kids' outfits, styled head to toe the same way. Message us for sizes and rates.</p>
-      </div>
-      <div class="kids__row" data-sc-reveal="up" data-sc-reveal-at="0.12 0.5">
-        <figure class="kid">
-          <img src="assets/kids-1.jpg" width="1086" height="1448" loading="lazy" alt="Girl in a brown suede fringe vest, cream ribbed top, tiered cream skirt, brown cowgirl hat and boots">
-          <figcaption><p class="lbl-num">Kids 01</p><p class="lbl-name">Fringe Vest, Tiered</p><p class="lbl-pieces">Fringe vest, ribbed top, tiered skirt, hat, boots.</p>
-          <button class="tagbtn" type="button" aria-pressed="false" data-look="Kids 01 · Fringe Vest, Tiered" data-pieces="Brown hat|Vest and ribbed top|Tiered skirt|Brown boots">Tag this look</button></figcaption>
-        </figure>
-        <figure class="kid">
-          <img src="assets/kids-2.jpg" width="1086" height="1448" loading="lazy" alt="Girl in a brown suede fringe vest, cream ribbed top, pleated cream skirt, brown cowgirl hat and boots">
-          <figcaption><p class="lbl-num">Kids 02</p><p class="lbl-name">Fringe Vest, Pleated</p><p class="lbl-pieces">Fringe vest, ribbed top, pleated skirt, hat, boots.</p>
-          <button class="tagbtn" type="button" aria-pressed="false" data-look="Kids 02 · Fringe Vest, Pleated" data-pieces="Brown hat|Vest and ribbed top|Pleated skirt|Brown boots">Tag this look</button></figcaption>
-        </figure>
-        <figure class="kid">
-          <img src="assets/kids-3.jpg" width="1086" height="1448" loading="lazy" alt="Girl in a copper fringe top, brown skirt, studded belt, brown cowgirl hat and tan boots">
-          <figcaption><p class="lbl-num">Kids 03</p><p class="lbl-name">Copper Fringe</p><p class="lbl-pieces">Fringe top, brown skirt, studded belt, hat, boots.</p>
-          <button class="tagbtn" type="button" aria-pressed="false" data-look="Kids 03 · Copper Fringe" data-pieces="Brown hat|Fringe top|Skirt and belt|Tan boots">Tag this look</button></figcaption>
-        </figure>
+  <!-- 4 · APPETITE: the rest of the range lives on its own page -->
+  <section id="more" class="sc-section more" data-sc-act="flow">
+    <div class="sc-wrap more__row" data-sc-in data-sc-stagger="60">
+      <h2 class="sc-display">Seven looks. <em>Three for kids.</em></h2>
+      <div class="more__side">
+        <p class="sc-body">See every outfit in one place, with what comes in each set. Tap any look to book it.</p>
+        <a class="btn" href="outfits.html">See all outfits</a>
       </div>
     </div>
   </section>
@@ -624,23 +528,36 @@
     }
     requestAnimationFrame(tick);
 
-    /* ---------- tag this look ---------- */
-    var tagButtons = document.querySelectorAll('.tagbtn');
-    tagButtons.forEach(function (b) {
-      b.addEventListener('click', function () {
-        tagButtons.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); o.textContent = 'Tag this look'; });
-        b.setAttribute('aria-pressed', 'true');
-        b.textContent = 'Tagged';
-        fitTagOwned = false;
-        state.look = b.getAttribute('data-look');
-        state.pieces = b.getAttribute('data-pieces').split('|');
-        state.on = state.pieces.map(function () { return true; });
-        renderTag();
-        fitStarted = true; tag.classList.add('is-shown');
-        if (!reduce) { tag.classList.remove('is-flip'); void tag.offsetWidth; tag.classList.add('is-flip'); }
-        setLook(state.look);
+    /* ---------- a look chosen on the Outfits page arrives as ?look= ---------- */
+    var PIECES = {
+      'Look 01 · Copper Corset': ['Brown cowgirl hat', 'Copper corset', 'Skirt and belt', 'Tall brown boots'],
+      'Look 02 · Plaid & Ruffles': ['Black hat', 'Plaid shirt', 'Tiered skirt and belt', 'Black fringe boots'],
+      'Look 03 · Suede Fringe Set': ['Brown hat', 'Fringe top', 'Fringe skirt and belt', 'Brown boots'],
+      'Look 04 · Fringe Vest': ['Brown hat', 'Fringe vest', 'Tiered skirt and belt', 'Croc-print boots'],
+      'Look 05 · Golden Lace': ['Tan hat', 'Lace top', 'Ruffle skirt and belt', 'Leopard print boots'],
+      'Look 06 · Denim & Fur': ['White fur-trim hat', 'Denim dress', 'Belt', 'White boots'],
+      'Look 07 · White Fringe': ['Tan hat', 'Fringe top', 'Tiered skirt and belt', 'Tall brown boots'],
+      'Kids 01 · Fringe Vest, Tiered': ['Brown hat', 'Vest and ribbed top', 'Tiered skirt', 'Brown boots'],
+      'Kids 02 · Fringe Vest, Pleated': ['Brown hat', 'Vest and ribbed top', 'Pleated skirt', 'Brown boots'],
+      'Kids 03 · Copper Fringe': ['Brown hat', 'Fringe top', 'Skirt and belt', 'Tan boots']
+    };
+    var wanted = new URLSearchParams(location.search).get('look');
+    if (wanted) {
+      fitTagOwned = false;
+      state.look = wanted;
+      state.pieces = PIECES[wanted] || ['Your own mix'];
+      state.on = state.pieces.map(function () { return true; });
+      renderTag();
+      fitStarted = true; tag.classList.add('is-shown');
+      setLook(wanted);
+    }
+    /* pinned acts get their height from the engine after load, so re-aim any #anchor once they exist */
+    if (location.hash) {
+      window.addEventListener('load', function () {
+        var t = document.querySelector(location.hash);
+        if (t) setTimeout(function () { t.scrollIntoView({ behavior: 'instant', block: 'start' }); }, 60);
       });
-    });
+    }
 
     function setLook(name) {
       for (var i = 0; i < lookSelect.options.length; i++) {
@@ -682,7 +599,7 @@
         links.forEach(function (l) { l.classList.toggle('is-here', l.getAttribute('href') === '#' + en.target.id); });
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['fitting', 'looks', 'kids', 'rental', 'book'].forEach(function (id) { io.observe(document.getElementById(id)); });
+    ['fitting', 'more', 'rental', 'book'].forEach(function (id) { io.observe(document.getElementById(id)); });
 
     /* ---------- trailing cursor, desktop only ---------- */
     var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;

@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>All outfits · Angel's Fits</title>
+<meta name="description" content="Every cowgirl, festival and kids' outfit you can rent from Angel's Fits in Mactan, Lapu-Lapu City. Message us for rates.">
+<link rel="icon" href="assets/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  :root {
+    --sc-canvas: #FEF8EC; --sc-surface: #EAD9C0; --sc-ink: #2B1B13; --sc-ink-soft: #6B4630;
+    --sc-accent: #B0532C; --sc-accent-ink: #FEF8EC;
+    --sc-font-display: "Fraunces", Georgia, serif;
+    --sc-font-text: "DM Sans", system-ui, sans-serif;
+    --sc-font-mono: "DM Sans", system-ui, sans-serif;
+    --sand: #EAD9C0; --bar-h: 76px;
+  }
+  body { background: var(--sc-canvas); color: var(--sc-ink); font-family: var(--sc-font-text); }
+  img { display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; border-radius: 4px; }
+  .sc-display em { font-style: italic; font-weight: 400; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    padding: .95rem 1.6rem; border-radius: var(--sc-r-pill);
+    background: var(--sc-accent); color: var(--sc-accent-ink);
+    font: 700 1rem/1.1 var(--sc-font-text); letter-spacing: .01em; text-decoration: none;
+    border: 1px solid var(--sc-accent); cursor: pointer; white-space: nowrap;
+    transition: transform 160ms var(--sc-ease-out), background-color 160ms var(--sc-ease-out), box-shadow 160ms var(--sc-ease-out);
+  }
+  .btn:active { transform: scale(0.97); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover { background: #8F3F1E; border-color: #8F3F1E; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(120, 52, 22, .25); }
+  }
+
+  .bar {
+    position: fixed; inset: 0 0 auto 0; z-index: var(--sc-z-chrome);
+    height: var(--bar-h); display: flex; align-items: center; gap: var(--sc-6);
+    padding-inline: var(--sc-gutter);
+    background: rgba(254, 248, 236, .9); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(43, 27, 19, .1);
+  }
+  .bar__mark img { height: 56px; width: auto; border-radius: 50%; }
+  .bar__index { display: flex; gap: var(--sc-5); margin-left: auto; }
+  .bar__index a {
+    font: 500 .92rem/1 var(--sc-font-text); text-decoration: none; color: var(--sc-ink-soft);
+    padding: .5rem 0; border-bottom: 1px solid transparent;
+    transition: color 140ms var(--sc-ease-out), border-color 140ms var(--sc-ease-out);
+  }
+  .bar__index a:hover, .bar__index a[aria-current="page"] { color: var(--sc-ink); border-color: var(--sc-accent); }
+  .bar .btn { padding: .75rem 1.25rem; font-size: .92rem; }
+
+  /* ---------- page head ---------- */
+  .head { padding: calc(var(--bar-h) + var(--sc-8)) 0 var(--sc-6); }
+  .head__row { display: flex; justify-content: space-between; align-items: end; gap: var(--sc-6); flex-wrap: wrap; }
+  .head h1 { font-size: var(--sc-t-4xl); }
+  .head .sc-body { max-width: 38ch; color: var(--sc-ink-soft); }
+
+  /* ---------- filters ---------- */
+  .filters { position: sticky; top: var(--bar-h); z-index: 5; background: var(--sc-canvas); padding-block: var(--sc-4); border-bottom: 1px solid rgba(43, 27, 19, .12); }
+  .filters__row { display: flex; gap: var(--sc-3); align-items: center; flex-wrap: wrap; }
+  .chip {
+    font: 700 .9rem/1 var(--sc-font-text); padding: .7rem 1.1rem; border-radius: var(--sc-r-pill);
+    background: transparent; color: var(--sc-ink); border: 1px solid rgba(43, 27, 19, .3); cursor: pointer;
+    transition: background-color 150ms var(--sc-ease-out), color 150ms var(--sc-ease-out), border-color 150ms var(--sc-ease-out), transform 150ms var(--sc-ease-out);
+  }
+  .chip small { font-weight: 500; opacity: .75; margin-left: .3rem; }
+  .chip:active { transform: scale(0.97); }
+  .chip[aria-pressed="true"] { background: var(--sc-ink); color: var(--sc-canvas); border-color: var(--sc-ink); }
+  @media (hover: hover) and (pointer: fine) { .chip:hover { border-color: var(--sc-accent); } }
+  .filters__note { margin-left: auto; font-size: .9rem; color: var(--sc-ink-soft); }
+
+  /* ---------- the list ---------- */
+  .list { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sc-8) var(--sc-6); padding-block: var(--sc-7) var(--sc-9); }
+  .item[hidden] { display: none; }
+  .item__photo {
+    position: relative; display: block; width: 100%; padding: 0; border: 0; background: var(--sand);
+    border-radius: var(--sc-r-lg); overflow: hidden; cursor: zoom-in;
+  }
+  .item__photo img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; transition: transform 400ms var(--sc-ease-out); }
+  @media (hover: hover) and (pointer: fine) { .item__photo:hover img { transform: scale(1.03); } }
+  .item__body { margin-top: var(--sc-4); }
+  .lbl-num { font: 700 .74rem/1 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; color: var(--sc-accent); margin: 0; }
+  .lbl-name { font: 400 1.55rem/1.1 var(--sc-font-display); margin: .35rem 0 0; }
+  .lbl-pieces { font-size: .95rem; line-height: 1.55; color: var(--sc-ink-soft); margin: .45rem 0 0; }
+  .item__actions { display: flex; align-items: center; gap: var(--sc-5); margin-top: var(--sc-4); }
+  .item__book { font: 700 .92rem/1 var(--sc-font-text); color: var(--sc-accent); text-underline-offset: 4px; }
+  .item__rate { font-size: .86rem; color: var(--sc-ink-soft); }
+
+  /* ---------- close ---------- */
+  .close { background: var(--sand); }
+  .close__row { display: flex; justify-content: space-between; align-items: center; gap: var(--sc-6); flex-wrap: wrap; }
+  .close h2 { font-size: var(--sc-t-3xl); max-width: 16ch; }
+  .close .sc-body { margin-top: var(--sc-4); color: var(--sc-ink-soft); }
+  .foot { padding-block: var(--sc-5); display: flex; flex-wrap: wrap; gap: var(--sc-4) var(--sc-7); justify-content: space-between; font-size: .88rem; color: var(--sc-ink-soft); }
+  .foot p { margin: 0; }
+
+  /* ---------- big photo view ---------- */
+  .viewer { border: 0; padding: 0; background: transparent; max-width: none; max-height: none; width: 100vw; height: 100dvh; }
+  .viewer::backdrop { background: rgba(43, 27, 19, .82); }
+  .viewer__inner { height: 100%; display: grid; place-items: center; padding: var(--sc-6); }
+  .viewer figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: var(--sc-4); max-height: 100%; }
+  .viewer img { max-height: calc(100dvh - 9rem); width: auto; max-width: 100%; border-radius: var(--sc-r-lg); box-shadow: 0 30px 60px rgba(0,0,0,.35); }
+  .viewer figcaption { color: #FEF8EC; text-align: center; font: 400 1.3rem/1.2 var(--sc-font-display); }
+  .viewer__close {
+    position: fixed; top: var(--sc-5); right: var(--sc-5); width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid rgba(254, 248, 236, .5); background: rgba(43, 27, 19, .6); color: #FEF8EC; cursor: pointer;
+    font: 400 1.6rem/1 var(--sc-font-text);
+  }
+  .viewer__close:active { transform: scale(0.95); }
+
+  .ring { position: fixed; left: 0; top: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1.5px solid var(--sc-accent); border-radius: 50%; pointer-events: none; z-index: 9999; opacity: 0; transition: width 250ms var(--sc-ease-out), height 250ms var(--sc-ease-out), margin 250ms var(--sc-ease-out), background-color 250ms var(--sc-ease-out), opacity 250ms var(--sc-ease-out); }
+  .ring.is-on { opacity: .8; }
+  .ring.is-hover { width: 56px; height: 56px; margin: -28px 0 0 -28px; background: rgba(176, 83, 44, .1); }
+  @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .ring { display: none; } }
+
+  @media (max-width: 1080px) { .list { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 860px) {
+    :root { --bar-h: 64px; }
+    .bar__mark img { height: 46px; }
+    .bar__index { gap: var(--sc-4); }
+    .bar__index a.bar__opt { display: none; }
+    .bar .btn { display: none; }
+    .head { padding-top: calc(var(--bar-h) + var(--sc-6)); }
+    .head h1 { font-size: var(--sc-t-3xl); }
+    .filters__note { display: none; }
+    .list { gap: var(--sc-7) var(--sc-4); }
+    .lbl-name { font-size: 1.2rem; }
+    .lbl-pieces { font-size: .86rem; }
+    .item__actions { flex-direction: column; align-items: flex-start; gap: var(--sc-2); }
+  }
+  @media (max-width: 420px) { .list { grid-template-columns: 1fr 1fr; } .item__rate { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .item__photo img { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="sc-grain" aria-hidden="true"></div>
+<div class="ring" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="bar__mark" href="index.html" aria-label="Angel's Fits home"><img src="assets/logo.jpg" width="400" height="400" alt="Angel's Fits logo"></a>
+  <nav class="bar__index" aria-label="Pages">
+    <a href="index.html">Home</a>
+    <a href="outfits.html" aria-current="page">Outfits</a>
+    <a class="bar__opt" href="index.html#rental">3-day rental</a>
+  </nav>
+  <a class="btn" href="index.html#book">Book your fit</a>
+</header>
+
+<main>
+  <section class="head">
+    <div class="sc-wrap head__row" data-sc-in data-sc-stagger="60">
+      <h1 class="sc-display">All the <em>outfits.</em></h1>
+      <p class="sc-body">Every look rents as a full set for 3 days, hat to boots. Or mix pieces between looks. Message us for rates.</p>
+    </div>
+  </section>
+
+  <div class="filters">
+    <div class="sc-wrap filters__row" role="group" aria-label="Show outfits">
+      <button class="chip" type="button" data-filter="all" aria-pressed="true">All <small>10</small></button>
+      <button class="chip" type="button" data-filter="women" aria-pressed="false">Women <small>7</small></button>
+      <button class="chip" type="button" data-filter="kids" aria-pressed="false">Kids <small>3</small></button>
+      <p class="filters__note">Tap a photo to see it bigger</p>
+    </div>
+  </div>
+
+  <section class="sc-wrap list" aria-live="polite">
+    <article class="item" data-group="women">
+      <button class="item__photo" type="button" aria-label="See Look 01, Copper Corset bigger"><img src="assets/look-4.jpg" width="1086" height="1448" alt="Copper brocade corset, ruffled brown skirt, concho belt, brown hat and tall brown boots on a mannequin"></button>
+      <div class="item__body"><p class="lbl-num">Look 01</p><h2 class="lbl-name">Copper Corset</h2><p class="lbl-pieces">Copper brocade corset, ruffled brown skirt, concho belt, brown hat, tall brown boots.</p>
+      <div class="item__actions"><a class="item__book" href="index.html?look=Look%2001%20%C2%B7%20Copper%20Corset#book">Book this look</a><span class="item__rate">Message us for rates</span></div></div>
+    </article>
+    <article class="item" data-group="women">
+      <button class="item__photo" type="button" aria-label="See Look 02, Plaid and Ruffles bigger"><img src="assets/look-2.jpg" width="1086" height="1448" loading="lazy" alt="Tied plaid shirt, white tiered skirt, studded belt, black hat and black fringe boots on a mannequin"></button>
+      <div class="item__body"><p class="lbl-num">Look 02</p><h2 class="lbl-name">Plaid &amp; Ruffles</h2><p class="lbl-pieces">Tied plaid shirt, white tiered skirt, studded belt, black hat, black fringe boots.</p>
+      <div class="item__actions"><a class="item__book" href="index.html?look=Look%2002%20%C2%B7%20Plaid%20%26%20Ruffles#book">Book this look</a><span class="item__rate">Message us for rates</span></div></div>
+    </article>
+    <article class="item" data-group="women">
+      <button class="item__photo" type="button" aria-label="See Look 03, Suede Fringe Set bigger"><img src="assets/look-7.jpg" width="1086" height="1448" loading="lazy" alt="Tan suede fringe top and skirt set, silver concho belt, brown hat and brown boots on a mannequin"></button>
+      <div class="item__body"><p class="lbl-num">Look 03</p><h2 class="lbl-name">Suede Fringe Set</h2><p class="lbl-pieces">Tan suede fringe top and skirt, silver concho belt, brown hat, brown boots.</p>
+      <div class="item__actions"><a class="item__book" href="index.html?look=Look%2003%20%C2%B7%20Suede%20Fringe%20Set#book">Book this look</a><span class="item__rate">Message us for rates</span></div></div>
+    </article>
+    <article class="item" data-group="women">
+      <button class="item__photo" type="button" aria-label="See Look 04, Fringe Vest bigger"><img src="assets/look-6.jpg" width="1086" height="1448" loading="lazy" alt="Brown suede fringe vest, white tiered skirt, studded belt, brown hat and croc-print boots on a mannequin"></button>
+      <div class="item__body"><p class="lbl-num">Look 04</p><h2 class="lbl-name">Fringe Vest</h2><p class="lbl-pieces">Brown suede fringe vest, white tiered skirt, studded belt, brown hat, croc-print boots.</p>
+      <div class="item__actions"><a class="item__book" href="index.html?look=Look%2004%20%C2%B7%20Fringe%20Vest#book">Book this look</a><span class="item__rate">Message us for rates</span></div></div>
+    </article>
+    <article class="item" data-group="women">
+      <button class="item__photo" type="button" aria-label="See Look 05, Golden Lace bigger"><img src="assets/look-1.jpg" width="1086" height="1448" loading="lazy" alt="Caramel lace top, white ruffle skirt, studded belt, tan hat and leopard print boots on a mannequin"></button>
+      <div class="item__body"><p class="lbl-num">Look 05</p><h2 class="lbl-name">Golden Lace</h2><p class="lbl-pieces">Caramel lace top, white ruffle skirt, studded belt, tan hat, leopard print boots.</p>
+      <div class="item__actions"><a class="item__book" href="index.html?look=Look%2005%20%C2%B7%20Golden%20Lace#book">Book this look</a><span class="item__rate">Message us for rates</span></div></div>
+    </article>
+    <article class="item" data-group="women">
+      <button class="item__photo" type="button" aria-label="See Look 06, Denim and Fur bigger"><img src="assets/look-3.jpg" width="1086" height="1448" loading="lazy" alt="Denim ruffle dress with belt, white fur-trim cowgirl hat and white knee-high boots on a mannequin"></button>
+      <div class="item__body"><p class="lbl-num">Look 06</p><h2 class="lbl-name">Denim &amp; Fur</h2><p class="lbl-pieces">Denim ruffle dress with belt, white fur-trim hat, white knee-high boots.</p>
+      <div class="item__actions"><a class="item__book" href="index.html?look=Look%2006%20%C2%B7%20Denim%20%26%20Fur#book">Book this look</a><span class="item__rate">Message us for rates</span></div></div>
+    </article>
+    <article class="item" data-group="women">
+      <button class="item__photo" type="button" aria-label="See Look 07, White Fringe bigger"><img src="assets/look-5.jpg" width="1086" height="1448" loading="lazy" alt="Cream fringe top, white tiered skirt, tan cowgirl hat, studded belt and tall brown boots on a mannequin"></button>
+      <div class="item__body"><p class="lbl-num">Look 07</p><h2 class="lbl-name">White Fringe</h2><p class="lbl-pieces">Cream fringe top, white tiered skirt, studded belt, tan hat, tall brown boots.</p>
+      <div class="item__actions"><a class="item__book" href="index.html?look=Look%2007%20%C2%B7%20White%20Fringe#book">Book this look</a><span class="item__rate">Message us for rates</span></div></div>
+    </article>
+    <article class="item" data-group="kids">
+      <button class="item__photo" type="button" aria-label="See Kids 01, Fringe Vest Tiered bigger"><img src="assets/kids-1.jpg" width="1086" height="1448" loading="lazy" alt="Girl in a brown suede fringe vest, cream ribbed top, tiered cream skirt, brown cowgirl hat and boots"></button>
+      <div class="item__body"><p class="lbl-num">Kids 01</p><h2 class="lbl-name">Fringe Vest, Tiered</h2><p class="lbl-pieces">Suede fringe vest, cream ribbed top, tiered cream skirt, brown hat, brown boots.</p>
+      <div class="item__actions"><a class="item__book" href="index.html?look=Kids%2001%20%C2%B7%20Fringe%20Vest%2C%20Tiered#book">Book this look</a><span class="item__rate">Message us for sizes</span></div></div>
+    </article>
+    <article class="item" data-group="kids">
+      <button class="item__photo" type="button" aria-label="See Kids 02, Fringe Vest Pleated bigger"><img src="assets/kids-2.jpg" width="1086" height="1448" loading="lazy" alt="Girl in a brown suede fringe vest, cream ribbed top, pleated cream skirt, brown cowgirl hat and boots"></button>
+      <div class="item__body"><p class="lbl-num">Kids 02</p><h2 class="lbl-name">Fringe Vest, Pleated</h2><p class="lbl-pieces">Suede fringe vest, cream ribbed top, pleated cream skirt, brown hat, brown boots.</p>
+      <div class="item__actions"><a class="item__book" href="index.html?look=Kids%2002%20%C2%B7%20Fringe%20Vest%2C%20Pleated#book">Book this look</a><span class="item__rate">Message us for sizes</span></div></div>
+    </article>
+    <article class="item" data-group="kids">
+      <button class="item__photo" type="button" aria-label="See Kids 03, Copper Fringe bigger"><img src="assets/kids-3.jpg" width="1086" height="1448" loading="lazy" alt="Girl in a copper fringe top, brown skirt, studded belt, brown cowgirl hat and tan boots"></button>
+      <div class="item__body"><p class="lbl-num">Kids 03</p><h2 class="lbl-name">Copper Fringe</h2><p class="lbl-pieces">Copper fringe top, brown skirt, studded belt, brown hat, tan boots.</p>
+      <div class="item__actions"><a class="item__book" href="index.html?look=Kids%2003%20%C2%B7%20Copper%20Fringe#book">Book this look</a><span class="item__rate">Message us for sizes</span></div></div>
+    </article>
+  </section>
+
+  <section class="sc-section close">
+    <div class="sc-wrap close__row" data-sc-in data-sc-stagger="60">
+      <div>
+        <h2 class="sc-display">Want to mix your <em>own?</em></h2>
+        <p class="sc-body">Swap the hat, the boots or the top between looks. We also have party outfits, not only cowgirl.</p>
+      </div>
+      <a class="btn" href="index.html?look=Mix%20and%20match%20my%20own#book">Book your fit</a>
+    </div>
+  </section>
+  <footer class="sc-wrap foot">
+    <p>© 2026 Angel's Fits · Mactan, Lapu-Lapu City, Cebu</p>
+    <p>Online only · Fittings at LG Garden · Replies 8am to 8pm</p>
+  </footer>
+</main>
+
+<dialog class="viewer" aria-label="Outfit photo">
+  <div class="viewer__inner">
+    <figure><img src="" alt=""><figcaption></figcaption></figure>
+  </div>
+  <button class="viewer__close" type="button" aria-label="Close">×</button>
+</dialog>
+
+<script src="scrollcraft.js"></script>
+<script>
+  ScrollCraft.mount(document.body);
+  (function () {
+    /* filters */
+    var chips = document.querySelectorAll('.chip');
+    var items = document.querySelectorAll('.item');
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        var f = c.getAttribute('data-filter');
+        chips.forEach(function (o) { o.setAttribute('aria-pressed', String(o === c)); });
+        items.forEach(function (it) { it.hidden = !(f === 'all' || it.getAttribute('data-group') === f); });
+      });
+    });
+
+    /* bigger photo */
+    var viewer = document.querySelector('.viewer');
+    var vImg = viewer.querySelector('img');
+    var vCap = viewer.querySelector('figcaption');
+    document.querySelectorAll('.item__photo').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var img = b.querySelector('img');
+        var item = b.closest('.item');
+        vImg.src = img.currentSrc || img.src;
+        vImg.alt = img.alt;
+        vCap.textContent = item.querySelector('.lbl-num').textContent + ' · ' + item.querySelector('.lbl-name').textContent;
+        viewer.showModal();
+      });
+    });
+    viewer.querySelector('.viewer__close').addEventListener('click', function () { viewer.close(); });
+    viewer.addEventListener('click', function (e) { if (e.target === viewer || e.target.classList.contains('viewer__inner')) viewer.close(); });
+
+    /* trailing cursor, desktop only */
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var ring = document.querySelector('.ring');
+    if (fine && !reduce) {
+      var mx = 0, my = 0, x = 0, y = 0;
+      document.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; ring.classList.add('is-on'); });
+      document.addEventListener('mouseleave', function () { ring.classList.remove('is-on'); });
+      document.addEventListener('mouseover', function (e) { ring.classList.toggle('is-hover', !!e.target.closest('a, button, select, input, textarea, label')); });
+      (function loop() { x += (mx - x) * 0.14; y += (my - y) * 0.14; ring.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)'; requestAnimationFrame(loop); })();
+    }
+  })();
+</script>
+</body>
+</html>
