@@ -200,30 +200,6 @@
   .foot { margin-top: var(--sc-9); padding-top: var(--sc-5); border-top: 1px solid rgba(43, 27, 19, .16); display: flex; flex-wrap: wrap; gap: var(--sc-4) var(--sc-7); justify-content: space-between; font-size: .88rem; color: var(--sc-ink-soft); }
   .foot p { margin: 0; }
 
-  /* ---------- signature: the hang tag ---------- */
-  .tag {
-    position: fixed; right: clamp(1rem, 3vw, 2.5rem); bottom: clamp(1rem, 3vw, 2rem); z-index: calc(var(--sc-z-chrome) - 1);
-    width: 15.5rem; padding: 1.6rem 1.2rem 1.1rem; background: #FFFDF8; color: var(--mesquite);
-    border-radius: 10px 10px 14px 14px; box-shadow: 0 18px 40px rgba(43, 27, 19, .22);
-    clip-path: polygon(18% 0, 82% 0, 100% 9%, 100% 100%, 0 100%, 0 9%);
-    transform: translateY(24px) rotate(3deg); opacity: 0; pointer-events: none;
-    transition: opacity 260ms var(--sc-ease-out), transform 360ms var(--sc-ease-out);
-  }
-  .tag.is-shown { opacity: 1; transform: rotate(-3deg); pointer-events: auto; }
-  .tag.is-hidden-for-book { opacity: 0; transform: translateY(24px) rotate(3deg); pointer-events: none; }
-  .tag.is-flip { animation: tagflip 420ms var(--sc-ease-out); }
-  @keyframes tagflip { 0% { transform: rotate(-3deg) scale(1); } 40% { transform: rotate(4deg) scale(1.04); } 100% { transform: rotate(-3deg) scale(1); } }
-  .tag__hole { position: absolute; top: .55rem; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--sc-canvas); box-shadow: inset 0 1px 2px rgba(43,27,19,.35); }
-  .tag__brand { font: 700 .68rem/1 var(--sc-font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--sc-accent); margin: 0; }
-  .tag__look { font: 400 1.25rem/1.15 var(--sc-font-display); margin: .4rem 0 .7rem; }
-  .tag__list { margin: 0; padding: .7rem 0 0; list-style: none; border-top: 1px dashed rgba(43, 27, 19, .3); display: grid; gap: .4rem; }
-  .tag__list li { display: flex; gap: .55rem; align-items: center; font-size: .86rem; color: #7A5A44; transition: color 200ms var(--sc-ease-out); }
-  .tag__list li::before { content: ""; flex: none; width: 13px; height: 13px; border-radius: 3px; border: 1.5px solid currentColor; transition: background-color 200ms var(--sc-ease-out); }
-  .tag__list li.is-on { color: var(--mesquite); }
-  .tag__list li.is-on::before { background: var(--sc-accent); border-color: var(--sc-accent); box-shadow: inset 0 0 0 2px #FFFDF8; }
-  .tag__foot { display: flex; justify-content: space-between; align-items: center; gap: .5rem; margin-top: .9rem; padding-top: .7rem; border-top: 1px dashed rgba(43, 27, 19, .3); }
-  .tag__foot small { font-size: .74rem; color: #7A5A44; }
-  .tag__foot a { font: 700 .82rem/1 var(--sc-font-text); color: var(--sc-accent); text-underline-offset: 3px; }
 
   /* ---------- trailing cursor (asked for by the owner) ---------- */
   .ring { position: fixed; left: 0; top: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1.5px solid var(--sc-accent); border-radius: 50%; pointer-events: none; z-index: 9999; opacity: 0; transition: width 250ms var(--sc-ease-out), height 250ms var(--sc-ease-out), margin 250ms var(--sc-ease-out), background-color 250ms var(--sc-ease-out), opacity 250ms var(--sc-ease-out); }
@@ -273,19 +249,13 @@
     .book h2 { font-size: var(--sc-t-3xl); }
     .form { padding: var(--sc-5); }
     .form__grid { grid-template-columns: 1fr; }
-    .tag { width: auto; left: var(--sc-4); right: var(--sc-4); bottom: var(--sc-3); padding: .8rem 1rem; clip-path: none; border-radius: var(--sc-r-md); display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: .8rem; }
-    .tag.is-shown { transform: none; }
-    .tag__hole, .tag__list { display: none; }
-    .tag__look { margin: .25rem 0 0; font-size: 1.05rem; }
-    .tag__foot { margin: 0; padding: 0; border: 0; grid-row: 1 / 3; grid-column: 2; flex-direction: column; align-items: end; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .fit__color { clip-path: none; }
     .fit__tape { display: none; }
-    .tag, .tag.is-shown, .tag.is-flip { transform: none; animation: none; }
     .piece.is-on { transform: none; }
-    .btn, .tagbtn { transition-property: background-color, color, border-color; }
+    .btn { transition-property: background-color, color, border-color; }
   }
 </style>
 </head>
@@ -374,7 +344,7 @@
   <!-- 4 · APPETITE: the rest of the range lives on its own page -->
   <section id="more" class="sc-section more" data-sc-act="flow">
     <div class="sc-wrap more__row" data-sc-in data-sc-stagger="60">
-      <h2 class="sc-display">Seven looks. <em>Three for kids.</em></h2>
+      <h2 class="sc-display">Seven looks. <em>One for kids.</em></h2>
       <div class="more__side">
         <p class="sc-body">See every outfit in one place, with what comes in each set. Tap any look to book it.</p>
         <a class="btn" href="outfits.html">See all outfits</a>
@@ -429,9 +399,7 @@
                 <option>Look 05 · Golden Lace</option>
                 <option>Look 06 · Denim &amp; Fur</option>
                 <option>Look 07 · White Fringe</option>
-                <option>Kids 01 · Fringe Vest, Tiered</option>
-                <option>Kids 02 · Fringe Vest, Pleated</option>
-                <option>Kids 03 · Copper Fringe</option>
+                <option>Kids 01 · Copper Fringe</option>
                 <option>Mix and match my own</option>
                 <option>A party outfit</option>
               </select></div>
@@ -451,15 +419,6 @@
 
 </main>
 
-<!-- signature: the hang tag. Fixed chrome, outlives every act. -->
-<aside class="tag" aria-label="Your tagged look" aria-live="polite">
-  <span class="tag__hole" aria-hidden="true"></span>
-  <p class="tag__brand">Angel's Fits</p>
-  <p class="tag__look">Look 01 · Copper Corset</p>
-  <ul class="tag__list"></ul>
-  <div class="tag__foot"><small>3-day rental</small><a href="#book" class="tag__book">Book this look</a></div>
-</aside>
-
 <script src="scrollcraft.js"></script>
 <script>
   ScrollCraft.mount(document.body);
@@ -470,24 +429,7 @@
     var FACEBOOK = "https://www.facebook.com/profile.php?id=61591773503501";
 
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var tag = document.querySelector('.tag');
-    var tagLook = tag.querySelector('.tag__look');
-    var tagList = tag.querySelector('.tag__list');
     var lookSelect = document.getElementById('f-look');
-
-    var state = { look: 'Look 01 · Copper Corset', pieces: ['Brown cowgirl hat', 'Copper corset', 'Skirt and belt', 'Tall brown boots'], on: [false, false, false, false] };
-
-    function renderTag() {
-      tagLook.textContent = state.look;
-      tagList.innerHTML = '';
-      state.pieces.forEach(function (p, i) {
-        var li = document.createElement('li');
-        li.textContent = p;
-        if (state.on[i]) li.className = 'is-on';
-        tagList.appendChild(li);
-      });
-    }
-    renderTag();
 
     /* ---------- the fitting: scroll dresses the mannequin ---------- */
     var fit = document.getElementById('fitting');
@@ -495,14 +437,13 @@
     var rows = fit.querySelectorAll('.piece');
     var bands = [0, 0.21, 0.45, 0.67, 1];           /* hat, top, skirt + belt, boots (measured on look-4) */
     var windows = [[0.06, 0.24], [0.28, 0.46], [0.50, 0.68], [0.72, 0.88]];
-    var fitStarted = false, fitTagOwned = true, lastP = -1;
+    var lastP = -1;
 
     function ease(t) { return 1 - Math.pow(1 - t, 3); }
     function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
 
     function tick() {
       var p = parseFloat(fit.style.getPropertyValue('--sc-p')) || 0;
-      var rect = fit.getBoundingClientRect();
       if (p !== lastP) {
         lastP = p;
         var shown = 0, onCount = 0;
@@ -512,45 +453,24 @@
           var on = t > 0.55;
           rows[i].classList.toggle('is-on', on);
           if (on) onCount = i + 1;
-          if (fitTagOwned) state.on[i] = on;
         });
         if (reduce) shown = 1;
         fig.style.setProperty('--hide', (1 - shown).toFixed(4));
         fig.style.setProperty('--tape', (shown > 0 && shown < 1) ? 1 : 0);
         fit.classList.toggle('is-done', onCount === 4);
-        if (fitTagOwned) renderTag();
       }
-      /* the tag appears once the fitting starts and stays for the rest of the page */
-      if (!fitStarted && rect.top < window.innerHeight * 0.4) { fitStarted = true; tag.classList.add('is-shown'); }
-      var book = document.getElementById('book').getBoundingClientRect();
-      tag.classList.toggle('is-hidden-for-book', book.top < window.innerHeight * 0.7);
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
 
     /* ---------- a look chosen on the Outfits page arrives as ?look= ---------- */
-    var PIECES = {
-      'Look 01 · Copper Corset': ['Brown cowgirl hat', 'Copper corset', 'Skirt and belt', 'Tall brown boots'],
-      'Look 02 · Plaid & Ruffles': ['Black hat', 'Plaid shirt', 'Tiered skirt and belt', 'Black fringe boots'],
-      'Look 03 · Suede Fringe Set': ['Brown hat', 'Fringe top', 'Fringe skirt and belt', 'Brown boots'],
-      'Look 04 · Fringe Vest': ['Brown hat', 'Fringe vest', 'Tiered skirt and belt', 'Croc-print boots'],
-      'Look 05 · Golden Lace': ['Tan hat', 'Lace top', 'Ruffle skirt and belt', 'Leopard print boots'],
-      'Look 06 · Denim & Fur': ['White fur-trim hat', 'Denim dress', 'Belt', 'White boots'],
-      'Look 07 · White Fringe': ['Tan hat', 'Fringe top', 'Tiered skirt and belt', 'Tall brown boots'],
-      'Kids 01 · Fringe Vest, Tiered': ['Brown hat', 'Vest and ribbed top', 'Tiered skirt', 'Brown boots'],
-      'Kids 02 · Fringe Vest, Pleated': ['Brown hat', 'Vest and ribbed top', 'Pleated skirt', 'Brown boots'],
-      'Kids 03 · Copper Fringe': ['Brown hat', 'Fringe top', 'Skirt and belt', 'Tan boots']
-    };
-    var wanted = new URLSearchParams(location.search).get('look');
-    if (wanted) {
-      fitTagOwned = false;
-      state.look = wanted;
-      state.pieces = PIECES[wanted] || ['Your own mix'];
-      state.on = state.pieces.map(function () { return true; });
-      renderTag();
-      fitStarted = true; tag.classList.add('is-shown');
-      setLook(wanted);
+    function setLook(name) {
+      for (var i = 0; i < lookSelect.options.length; i++) {
+        if (lookSelect.options[i].text === name) { lookSelect.selectedIndex = i; return; }
+      }
     }
+    var wanted = new URLSearchParams(location.search).get('look');
+    if (wanted) setLook(wanted);
     /* pinned acts get their height from the engine after load, so re-aim any #anchor once they exist */
     if (location.hash) {
       window.addEventListener('load', function () {
@@ -558,15 +478,6 @@
         if (t) setTimeout(function () { t.scrollIntoView({ behavior: 'instant', block: 'start' }); }, 60);
       });
     }
-
-    function setLook(name) {
-      for (var i = 0; i < lookSelect.options.length; i++) {
-        if (lookSelect.options[i].text === name) { lookSelect.selectedIndex = i; return; }
-      }
-    }
-    document.querySelectorAll('a[href="#book"]').forEach(function (a) {
-      a.addEventListener('click', function () { if (fitStarted) setLook(state.look); });
-    });
 
     /* ---------- the booking form ---------- */
     var form = document.getElementById('booking');
